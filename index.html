@@ -7,6 +7,22 @@
 <script type="text/javascript" src="jquery-1.12.2.min.js"></script>
 
 <script type="text/javascript">
+	var imgArr = [
+		"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583047946445&di=a24219f248a733a507a9e04290a760a9&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D348573715%2C2708793606%26fm%3D214%26gp%3D0.jpg",
+		"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=152846528,1597169075&fm=11&gp=0.jpg",
+		"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3068938992,3050089390&fm=26&gp=0.jpg",
+		"https://5b0988e595225.cdn.sohucs.com/images/20180112/724676ed35dd4ae6bff5e664f644f910.jpeg",
+		"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583049877020&di=a3f0f759f279bfb632d97a32bf1dfe27&imgtype=0&src=http%3A%2F%2Fwww.08160.cn%2Fuploads%2Fallimg%2F171024%2F23-1G024120K9-50.jpg",
+		"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1139112896,269656713&fm=26&gp=0.jpg",
+		"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583050059575&di=b9f4fab2de27cad3c18ae40192d1ef08&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201808%2F25%2F20180825224458_skufe.jpg",
+		"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2260456063,2204569936&fm=26&gp=0.jpg",
+		"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583050367891&di=87f60d81770266ff18a98e25731e5954&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fphoto%2Fl%2Fpublic%2Fp1791598305.jpg",
+	];
+
+	let timeout = null;
+	let index = 1;
+	let initTime = 10;
+
 	$(init);
 
 	function init()
@@ -17,17 +33,21 @@
 	function initBtn()
 	{
 		$(".item.begin").click(function() {
+			clearTimeout(timeout);
+			index = 1;
+			initTime = 10;
 			start();
+		});
+
+		$(".btn-cancel").click(function() {
+			$(".popup").addClass("hidden");
 		});
 	}
 
 	function start()
 	{
 		let time = Math.floor(Math.random() * 10000);
-		let index = 1;
-		let timeout = null;
-		let initTime = 10;
-
+		
 		function event() {
 			if(index > $(".item").length - 1)
 			{
@@ -45,9 +65,13 @@
 		
 		event();
 		setTimeout(function() {
+			let imgUrl = imgArr[index-1];
+			$(".popup").removeClass("hidden");
+			$(".popup .image").attr('src', imgUrl);
 			clearTimeout(timeout);
 		}, time);
 	}
+
 
 
 </script>
@@ -66,8 +90,12 @@
 		background-color: grey;
 		text-align: center;
 		line-height: 200px;
+
+		background-size: contain;
+	    background-repeat: no-repeat;
+	    background-position: center;
 	}
-	.item.on
+	.on
 	{
 		border: 5px solid green;
 		line-height: 190px;
@@ -78,6 +106,36 @@
 		cursor: pointer;
 	}
 
+	.popup
+	{
+		width: 100%;
+	    height: 100%;
+	    background: white;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	}
+
+	.popup-content 
+	{
+	    width: 90%;
+	    height: 90%;
+	    text-align: center;
+	    margin: auto;
+	}
+
+	.image 
+	{
+	    max-height: 90%;
+	    width: auto;
+	    max-width: 100%;
+	}
+
+	.hidden
+	{
+	    visibility: hidden;
+	}
+
 
 
 </style>
@@ -85,15 +143,25 @@
 </head>
 <body>
 	<div id='container'>
-		<div class='item item1' index='1'>包包</div>
-		<div class='item item2' index='2'>再接再厉</div>
-		<div class='item item3' index='3'>现金</div>
-		<div class='item item8' index='8'>再接再厉</div>
-		<div class='item begin'>Begin</div>
-		<div class='item item4'  index='4'>再接再厉</div>
-		<div class='item item7' index='7'>香水</div>
-		<div class='item item6' index='6'>再接再厉</div>
-		<div class='item item5' index='5'>电器</div>
+		<div class='item item1 on' index='1'>？？？</div>
+		<div class='item item2' index='2'>？？？</div>
+		<div class='item item3' index='3'>？？？</div>
+		<div class='item item8' index='8'>？？？</div>
+		<div class='item begin'>谁是你老公？？</div>
+		<div class='item item4'  index='4'>？？？</div>
+		<div class='item item7' index='7'>？？？</div>
+		<div class='item item6' index='6'>？？？</div>
+		<div class='item item5' index='5'>？？？</div>
+	</div>
+
+	<div class='popup hidden'>
+		<div class='popup-content'>
+			<img class='image' src="">
+			<div>
+				<button class='btn-cancel'>再来</button>
+			</div>
+			
+		</div>
 	</div>
 	
 </body>
