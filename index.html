@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+
+<script type="text/javascript" src="jquery-1.12.2.min.js"></script>
+
+<script type="text/javascript">
+	$(init);
+
+	function init()
+	{
+		initBtn();
+	}
+
+	function initBtn()
+	{
+		$(".item.begin").click(function() {
+			start();
+		});
+	}
+
+	function start()
+	{
+		let time = Math.floor(Math.random() * 10000);
+		let index = 1;
+		let timeout = null;
+		let initTime = 10;
+
+		function event() {
+			if(index > $(".item").length - 1)
+			{
+				index = 1;
+			}
+			$(".item").removeClass("on");
+			$(".item"+index).addClass("on");
+			index++;
+
+			timeout = setTimeout(function() {
+				initTime *= 1.1;
+				event();
+			}, initTime);
+		}
+		
+		event();
+		setTimeout(function() {
+			clearTimeout(timeout);
+		}, time);
+	}
+
+
+</script>
+
+<style type="text/css">
+	
+	#container
+	{
+		display: grid;
+		grid-template-columns: 200px 200px 200px;
+  		grid-template-rows: 200px 200px 200px;
+	}
+
+	.item
+	{
+		background-color: grey;
+		text-align: center;
+		line-height: 200px;
+	}
+	.item.on
+	{
+		border: 5px solid green;
+		line-height: 190px;
+	}
+	.item.begin
+	{
+		background-color: green;
+		cursor: pointer;
+	}
+
+
+
+</style>
+
+</head>
+<body>
+	<div id='container'>
+		<div class='item item1' index='1'>包包</div>
+		<div class='item item2' index='2'>再接再厉</div>
+		<div class='item item3' index='3'>现金</div>
+		<div class='item item8' index='8'>再接再厉</div>
+		<div class='item begin'>Begin</div>
+		<div class='item item4'  index='4'>再接再厉</div>
+		<div class='item item7' index='7'>香水</div>
+		<div class='item item6' index='6'>再接再厉</div>
+		<div class='item item5' index='5'>电器</div>
+	</div>
+	
+</body>
+</html>
